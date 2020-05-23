@@ -1,0 +1,1 @@
+export type Glyph = 'close' | 'morty' | 'loader'

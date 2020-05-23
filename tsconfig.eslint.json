@@ -1,0 +1,16 @@
+{
+    "extends": "./tsconfig.json",
+    "include": [
+        "**/*.ts",
+        "**/*.tsx",
+    ],
+    "compilerOptions": {
+        "allowJs": true,
+        "checkJs": false
+    },
+    "linterOptions": {
+        "exclude": [
+            "node_modules/**/*.ts"
+        ]
+    }
+}
