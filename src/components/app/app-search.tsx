@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { Field, Icon } from 'components/common'
-import { Char } from 'api/types'
+import { Character } from 'api/generated/graphql'
 
 import { AppCard } from './app-card'
 
@@ -45,10 +45,10 @@ width: 10rem;
 `
 
 interface Props {
-	items: Array<Char>
+	items: Array<Character>
 	isLoad: boolean
-	onClick: (item: Char) => void
-	onRemove: (item: Char) => void
+	onClick: (item: Character) => void
+	onRemove: (item: Character) => void
 	onSearch: (e: string) => void
 }
 
@@ -64,22 +64,21 @@ export class AppSearch extends React.Component<Props> {
 					onInput={ onSearch }
 				/>
 				{
-					isLoad && <Loader glyph={ 'loader' }/>
-					|| 
-						items.length > 0 && (
-							<CardList>
-								{
-									items.map((item: Char, i) => (
-										<AppCard
-											key={ i }
-											item={ item }
-											onClick={ () => onClick(item) }
-											onRemove={ () => onRemove(item) }
-										/>
-									))
-								}	
-							</CardList>
-						)
+					(isLoad && <Loader glyph={ 'loader' }/>)
+					|| (items.length > 0 && (
+						<CardList>
+							{
+								items.map((item: Character, i) => (
+									<AppCard
+										key={ i }
+										item={ item }
+										onClick={ () => onClick(item) }
+										onRemove={ () => onRemove(item) }
+									/>
+								))
+							}	
+						</CardList>
+					))
 					|| (
 						<Error>
 							<SizedIcon glyph={ 'morty' }/>

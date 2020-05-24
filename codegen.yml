@@ -1,0 +1,23 @@
+overwrite: true
+schema:
+  - "https://rickandmortyapi.com/graphql"
+documents:
+  - "src/**/*.{ts,tsx}"
+  - "!.next"
+  - "!node_modules"
+generates:
+  src/api/generated/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+      - "typescript-resolvers"
+    config:
+      withHooks: true
+      withHOC: false
+      withComponent: false
+      # https://graphql-code-generator.com/docs/generated-config/typescript#maybevalue-string-default-value-t--null
+      maybeValue: T | null | undefined
+  src/api/generated/gql.schema.json:
+    plugins:
+      - "introspection"

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { Char } from 'api/types'
+import { Character } from 'api/generated/graphql'
 
 import { AppCard } from './app-card'
 
@@ -27,7 +27,7 @@ justify-content:center;
 `
 
 interface Props {
-	items: Array<Char>
+	items: Array<Character>
 }
 
 enum Chars{
@@ -39,7 +39,7 @@ export class AppParty extends React.Component<Props> {
 	names = [Chars.RICK, Chars.MORTY]
 
 	getRightItem(name: Chars) {
-		return this.props.items.find(item => item.name.toLowerCase().includes(name))
+		return this.props.items.find(item => item.name?.toLowerCase().includes(name))
 	}
 
 	render() {

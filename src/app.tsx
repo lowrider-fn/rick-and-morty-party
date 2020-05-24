@@ -1,7 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { Char } from 'api/types'
-import { getChars } from 'api/api'
+import { useGetCharsQuery, Character } from 'api/generated/graphql'
 
 import { AppSearch, AppParty } from './components/app'
 
@@ -22,11 +21,18 @@ grid-row-gap: 10rem;
 export const App: React.FC = () =>  {
 	const [isLoad, setIsLoad]: [boolean, Function] = React.useState(true)
 	const [search, setSearch]: [string, Function] = React.useState('')
-	const [items, setItems]: [Array<Char>, Function] = React.useState([])
-	const [currentItems, setCurrentItems]: [Array<Char>, Function] = React.useState([])
-	const [removedItems, setRemovedItems]: [Array<Char>, Function] = React.useState([])
+	const [items, setItems]: [Array<Character>, Function] = React.useState([])
+	const [currentItems, setCurrentItems]: [Array<Character>, Function] = React.useState([])
+	const [removedItems, setRemovedItems]: [Array<Character>, Function] = React.useState([])
 	
-	const { data, loading, refetch } = getChars(search)
+	const { data, refetch } = useGetCharsQuery(
+		{ variables:
+			{ 
+				page  : 1,
+				filter:
+				{ name: search },
+			}, 
+		})
 
 	React.useEffect(() => {
 		if(data?.characters) {
@@ -45,13 +51,13 @@ export const App: React.FC = () =>  {
 			})
 	}
 
-	const addToGame = (item: Char) => {
+	const addToGame = (item: Character) => {
 		const i = [...currentItems]
 		i.unshift(item)
 		setCurrentItems(i)
 	}
 
-	const removeCard = (item: Char) => {
+	const removeCard = (item: Character) => {
 		const i = [...removedItems]
 		i.push(item)
 		setRemovedItems(i)

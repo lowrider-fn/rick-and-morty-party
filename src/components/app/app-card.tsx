@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { Btn, Icon } from 'components/common'
-import { Char } from 'api/types'
+import { Character } from 'api/generated/graphql'
 
 const Card = styled.div`
 display:inline-block;
@@ -52,7 +52,7 @@ justify-content: center;
 `
 
 interface Props {
-	item?: Char
+	item?: Character
 	text?: string
 	onClick?: () => void
 	onRemove?: () => void
@@ -70,8 +70,8 @@ export class AppCard extends React.Component<Props> {
 				{
 					(item && (
 						<Img
-							src={ item.image }
-							alt={ item.name }
+							src={ item.image || '' }
+							alt={ item.name || '' }
 						/>
 					))
 				||
